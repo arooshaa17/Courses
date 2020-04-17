@@ -7,15 +7,16 @@ import logging
 import utilities.custom_logger as cl
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from locators import*
 
 
 class BasePage(object):
-    log = cl.customLogger(logging.DEBUG)
+    log = cl.custom_logger(logging.DEBUG)
 
     def __init__(self, driver):
         self.driver = driver
 
-    def getByType(self, locatorType):
+    def get_by_type(self, locatorType):
         locatorType = locatorType.lower()
         if locatorType == "id":
             return By.ID
@@ -36,29 +37,29 @@ class BasePage(object):
                           " not correct/supported")
         return False
 
-    def getElement(self, locator, locatorType="xpath"):
-        byType = self.getByType(locatorType)
+    def get_element(self, locator, locatorType="xpath"):
+        byType = self.get_by_type(locatorType)
         element = self.driver.find_element(byType, locator)
         return element
 
-    def elementClick(self, locator, locatorType="xpath"):
-        element = self.getElement(locator, locatorType)
+    def element_click(self, locator, locatorType="xpath"):
+        element = self.get_element(locator, locatorType)
         element.click()
 
-    def enterData(self, data, locator, locatorType="xpath"):
-        element = self.getElement(locator, locatorType)
+    def enter_data(self, data, locator, locatorType="xpath"):
+        element = self.get_element(locator, locatorType)
         element.send_keys(data)
 
-    def isElementDisplayed(self, locator, locatorType="xpath"):
-        element = self.getElement(locator, locatorType)
-        isDisplayed = element.is_displayed()
-        return isDisplayed
+    def is_element_displayed(self, locator, locatorType="xpath"):
+        element = self.get_element(locator, locatorType)
+        displayed = element.is_displayed()
+        return displayed
 
-    def navigateTo(self, url):
+    def navigate_to_page(self, url):
         self.driver.get(url)
 
-    def isElementPresent(self, locator, locatorType="xpath"):
-        element = self.getElement(locator, locatorType)
+    def is_element_present(self, locator, locatorType="xpath"):
+        element = self.get_element(locator, locatorType)
         if element is not None:
             return True
         else:

@@ -1,38 +1,25 @@
 import time
-import unittest
-
 from selenium import webdriver
-
-from pages.courses_page import CoursePage
 from pages.login_page import LoginPage
+from tests.base_test import BaseTest
+from data_set import*
 
 
-class LoginTest(unittest.TestCase):
-
-    def setUp(self):
-        baseURL = "https://www.edx.org/"
-        self.driver = webdriver.Firefox()
-        # self.driver = webdriver.Chrome("C:/Users/Aroosha Arif/workspace_python/drivers/chromedriver.exe")
-        self.driver.maximize_window()
-        self.driver.implicitly_wait(3)
-        self.driver.get(baseURL)
-        self.login_page = LoginPage(self.driver)
-        self.course = CoursePage(self.driver)
+class CourseTest(BaseTest):
 
     def test_course_enrollment(self):
-        course_name = "Introduction to Python: Absolute Beginner"
-        self.login_page.login('newtest5718@gmail.com', 'testselenium123')
-        time.sleep(3)
-        self.course.exploreCourses()
-        time.sleep(3)
-        self.course.searchCourse("Python")
-        time.sleep(3)
-        self.course.selectCourse(course_name)
-        result = self.course.verifyEnrollSuccessful(course_name)
-        assert result == True
+        """
+        Verify that user is able to enroll in a course
 
-    def tearDown(self):
         """
-        Tear down
-        """
+        self.login_page.login(EMAIL, PASSWORD)
+        time.sleep(3)
+        self.course.explore_courses()
+        time.sleep(3)
+        self.course.search_course(SEARCH_KEY)
+        time.sleep(3)
+        self.course.select_course(COURSE_NAME)
+        result = self.course.verify_enroll_successful(COURSE_NAME)
+        self.assertTrue(result, "Enrollment failed")
+
 

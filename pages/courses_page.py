@@ -5,7 +5,7 @@ import utilities.custom_logger as cl
 
 
 class CoursePage(BasePage):
-    log = cl.customLogger(logging.DEBUG)
+    log = cl.custom_logger(logging.DEBUG)
 
     # Locators #
     _search_box = "//input[@name='search_query']"
@@ -20,25 +20,26 @@ class CoursePage(BasePage):
 
     # Element Interactions #
 
-    def exploreCourses(self):
-        self.elementClick(self._explore_course)
+    def explore_courses(self):
+        self.element_click(self._explore_course)
 
-    def searchCourse(self, name):
-        self.enterData(name, self._search_box)
-        self.elementClick(self._search_button)
+    def search_course(self, name):
+        self.enter_data(name, self._search_box)
+        time.sleep(1)
+        self.element_click(self._search_button)
 
-    def selectCourse(self, fullCourseName):
-        self.elementClick(locator=self._course.format(fullCourseName), locatorType="xpath")
+    def select_course(self, fullCourseName):
+        self.element_click(locator=self._course.format(fullCourseName), locatorType="xpath")
 
-    def clickEnrollButton(self):
-        self.elementClick(self._enroll_button)
+    def click_enroll_course_link(self):
+        self.element_click(self._enroll_button)
 
-    def enrollCourse(self, name, fullCourseName):
-        self.searchCourse(name)
-        self.selectCourse(fullCourseName)
-        self.clickEnrollButton()
+    def enroll_course(self, name, fullCourseName):
+        self.search_course(name)
+        self.select_course(fullCourseName)
+        self.click_enroll_course_link()
 
-    def verifyEnrollSuccessful(self, fullCourseName):
-        self.navigateTo("https://courses.edx.org/dashboard")
-        result = self.isElementPresent(locator=self._my_course.format(fullCourseName))
+    def verify_enroll_successful(self, fullCourseName):
+        self.navigate_to_page("https://courses.edx.org/dashboard")
+        result = self.is_element_present(locator=self._my_course.format(fullCourseName))
         return result
