@@ -1,13 +1,8 @@
 import logging
-import time
-from traceback import print_stack
-from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
-import logging
-import utilities.custom_logger as cl
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from locators import*
+import utilities.custom_logger as cl
 
 
 class BasePage(object):

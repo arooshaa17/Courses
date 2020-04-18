@@ -1,41 +1,24 @@
-from pages.base_page import BasePage
 import time
-import logging
-import utilities.custom_logger as cl
-from locators import*
+from pages.base_page import BasePage
+from locators import (
+    _email_field, _password_field, _login_button, _login_link, _my_profile, _login_error
+)
 
 
 class LoginPage(BasePage):
 
-    log = cl.custom_logger(logging.DEBUG)
-
-    # Locators #
-    _login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
-    _email_field = "email"
-    _password_field = "password"
-    _login_button = "//button[@type='submit']"
-    _my_profile = "//section[@id='my-courses']"
-
     def click_login_link(self):
-        self.element_click(self._login_link)
-
-    def enter_email(self, email):
-        self.enter_data(email, self._email_field, "name")
-
-    def enter_password(self, password):
-        self.enter_data(password, self._password_field, "name")
-
-    def click_login_button(self):
-        self.element_click(self._login_button)
+        self.element_click(_login_link)
+        time.sleep(3)
 
     def login(self, email, password):
-        self.click_login_link()
-        time.sleep(3)
-        self.enter_email(email)
-        self.enter_password(password)
-        self.click_login_button()
+        self.enter_data(email, _email_field, locatorType="name")
+        self.enter_data(password, _password_field, locatorType="name")
+        self.element_click(_login_button)
         time.sleep(5)
 
     def verify_login_successful(self):
-        result = self.is_element_present("//section[@id='my-courses']", locatorType="xpath")
-        return result
+        return self.is_element_present(_my_profile)
+
+    def verify_login_failed(self):
+        return self.is_element_present(_login_error)
