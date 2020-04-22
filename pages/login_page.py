@@ -1,6 +1,6 @@
 import time
 from pages.base_page import BasePage
-from locators import (
+from pages.locators import (
     _email_field, _password_field, _login_button, _login_link, _my_profile, _login_error
 )
 

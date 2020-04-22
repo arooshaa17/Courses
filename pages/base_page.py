@@ -1,6 +1,10 @@
 import logging
+import random
+import string
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 import utilities.custom_logger as cl
 
@@ -45,6 +49,10 @@ class BasePage(object):
         element = self.get_element(locator, locatorType)
         element.send_keys(data)
 
+    def enter_random_data(self, locator, length, locatorType="xpath", data_type='letters'):
+        element = self.get_element(locator, locatorType)
+        element.send_keys(self.get_alpha_numeric_data(length, data_type))
+
     def is_element_displayed(self, locator, locatorType="xpath"):
         element = self.get_element(locator, locatorType)
         displayed = element.is_displayed()
@@ -62,10 +70,45 @@ class BasePage(object):
                           " locatorType: " + locatorType)
             return False
 
-    def wait_for_element(self, locator):
+    def select_value_from_dropdown(self, locator, data, locatorType="xpath", select_by='value'):
+
+        element = self.get_element(locator, locatorType)
+        time.sleep(3)
+        selection = Select(element)
+        if select_by == 'index':
+            selection.select_by_index(data)
+        elif select_by == 'text':
+            selection.select_by_visible_text(data)
+        else:
+            selection.select_by_value(data)
+
+    def wait_for_element(self, locator, locatorType="xpath"):
         """
-        Wait for element
+        Wait for element present
         """
+        byType = self.get_by_type(locatorType)
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, locator))
+            EC.visibility_of_element_located((byType, locator))
         )
+
+    def get_alpha_numeric_data(self, length, data_type ='letters'):
+        """
+        Get random string of characters
+
+        Parameters:
+            length: Length of string, number of characters string should have
+            data_type: Type of characters string should have. Default is letters
+            Provide lower/upper/digits for different types
+        """
+        alpha_num = ''
+        if data_type == 'lower':
+            case = string.ascii_lowercase
+        elif data_type == 'upper':
+            case = string.ascii_uppercase
+        elif data_type == 'digits':
+            case = string.digits
+        elif data_type == 'mix':
+            case = string.ascii_letters + string.digits
+        else:
+            case = string.ascii_letters
+        return alpha_num.join(random.choice(case) for i in range(length))
