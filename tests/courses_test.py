@@ -24,7 +24,7 @@ class CourseTest(BaseTest):
 
     def test_upgrading_course_enrollment(self):
         """
-        Verify that user can upgrade course enrollment
+        Verify that user can upgrade his/her course enrollment following the payment flow
         """
         result = self.course_page.verify_upgrade_enrollment(COURSE_NAME)
         self.assertTrue(result, "Upgrade failed")

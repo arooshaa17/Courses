@@ -15,64 +15,79 @@ class BasePage(object):
     def __init__(self, driver):
         self.driver = driver
 
-    def get_by_type(self, locatorType):
-        locatorType = locatorType.lower()
-        if locatorType == "id":
+    def get_by_type(self, locator_type):
+        locator_type = locator_type.lower()
+        if locator_type == "id":
             return By.ID
-        elif locatorType == "name":
+        elif locator_type == "name":
             return By.NAME
-        elif locatorType == "xpath":
+        elif locator_type == "xpath":
             return By.XPATH
-        elif locatorType == "css":
+        elif locator_type == "css":
             return By.CSS_SELECTOR
-        elif locatorType == "class":
+        elif locator_type == "class":
             return By.CLASS_NAME
-        elif locatorType == "tag":
+        elif locator_type == "tag":
             return By.TAG_NAME
-        elif locatorType == "link":
+        elif locator_type == "link":
             return By.LINK_TEXT
         else:
-            self.log.info("Locator type " + locatorType +
+            self.log.info("Locator type " + locator_type +
                           " not correct/supported")
         return False
 
-    def get_element(self, locator, locatorType="xpath"):
-        byType = self.get_by_type(locatorType)
+    def get_element(self, locator, locator_type="xpath"):
+        byType = self.get_by_type(locator_type)
         element = self.driver.find_element(byType, locator)
         return element
 
-    def element_click(self, locator, locatorType="xpath"):
-        element = self.get_element(locator, locatorType)
+    def get_text(self, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
+        return element.text
+
+    def get_attribute_value(self, attribute, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
+        return element.get_attribute(attribute)
+
+    def element_displayed(self, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
+        return element.is_displayed()
+
+    def element_click(self, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
         element.click()
 
-    def enter_data(self, data, locator, locatorType="xpath"):
-        element = self.get_element(locator, locatorType)
+    def enter_data(self, data, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
         element.send_keys(data)
 
-    def enter_random_data(self, locator, length, locatorType="xpath", data_type='letters'):
-        element = self.get_element(locator, locatorType)
+    def enter_random_data(self, locator, length, locator_type="xpath", data_type='letters'):
+        element = self.get_element(locator, locator_type)
         element.send_keys(self.get_alpha_numeric_data(length, data_type))
 
-    def is_element_displayed(self, locator, locatorType="xpath"):
-        element = self.get_element(locator, locatorType)
+    def is_element_displayed(self, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
         displayed = element.is_displayed()
         return displayed
 
     def navigate_to_page(self, url):
         self.driver.get(url)
 
-    def is_element_present(self, locator, locatorType="xpath"):
-        element = self.get_element(locator, locatorType)
+    def get_page_title(self):
+        return self.driver.title
+
+    def is_element_present(self, locator, locator_type="xpath"):
+        element = self.get_element(locator, locator_type)
         if element is not None:
             return True
         else:
             self.log.info("Element not present with locator: " + locator +
-                          " locatorType: " + locatorType)
+                          " locator_type: " + locator_type)
             return False
 
-    def select_value_from_dropdown(self, locator, data, locatorType="xpath", select_by='value'):
+    def select_value_from_dropdown(self, locator, data, locator_type="xpath", select_by='value'):
 
-        element = self.get_element(locator, locatorType)
+        element = self.get_element(locator, locator_type)
         time.sleep(3)
         selection = Select(element)
         if select_by == 'index':
@@ -82,16 +97,16 @@ class BasePage(object):
         else:
             selection.select_by_value(data)
 
-    def wait_for_element(self, locator, locatorType="xpath"):
+    def wait_for_element(self, locator, locator_type="xpath"):
         """
-        Wait for element present
+        Wait for element visibility
         """
-        byType = self.get_by_type(locatorType)
+        byType = self.get_by_type(locator_type)
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((byType, locator))
         )
 
-    def get_alpha_numeric_data(self, length, data_type ='letters'):
+    def get_alpha_numeric_data(self, length, data_type='letters'):
         """
         Get random string of characters
 
@@ -112,3 +127,12 @@ class BasePage(object):
         else:
             case = string.ascii_letters
         return alpha_num.join(random.choice(case) for i in range(length))
+
+    def verify_page_titles_list(self, locators_list, expected_list):
+
+        actual_page_titles_list = []
+        for locator in locators_list:
+            self.element_click(locator)
+            actual_page_titles_list.append(self.get_page_title)
+            time.sleep(3)
+        return actual_page_titles_list == expected_list

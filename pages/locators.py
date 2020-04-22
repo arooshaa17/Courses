@@ -1,10 +1,10 @@
 # Login Page Locators #
-_login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
-_email_field = "email"
-_password_field = "password"
-_login_button = "//button[@type='submit']"
-_my_profile = "//section[@id='my-courses']"
-_login_error = "//li[contains(text(), 'Email or password is incorrect')]"
+login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
+email_field = "email"
+password_field = "password"
+login_button = "//button[@type='submit']"
+my_profile = "//section[@id='my-courses']"
+login_error = "//li[contains(text(), 'Email or password is incorrect')]"
 
 # Home Page Locators #
 course_link = "(//div[@class='mobile-nav-item hidden-mobile nav-item nav-tab'])[1]"
@@ -13,14 +13,14 @@ discover_link = "(//div[@class='mobile-nav-item hidden-mobile nav-item nav-tab']
 page_selectors_list = [course_link, product_link, discover_link]
 
 # Course Page Locators #
-_explore_course = "//a[@class='btn-neutral']"
-_search_box = "//input[@name='search_query']"
-_search_button = "//*[@class='icon fa fa-search']"
-_course = "//h3[contains(text(),'{0}')]"
-_enroll_button = "//button[@class='btn enroll-btn legacy w-100']"
-_free_trial = "//button[@id='free_trial_start_button_button']"
-_amount = "//div[@class='total-subscriptions-container price-line horizontal-box']"
-_my_course = "//a[contains(text(),'{0}')]"
+explore_course = "//a[@class='btn-neutral']"
+search_box = "//input[@name='search_query']"
+search_button = "//*[@class='icon fa fa-search']"
+course = "//h3[contains(text(),'{0}')]"
+enroll_button = "//button[@class='btn enroll-btn legacy w-100']"
+free_trial = "//button[@id='free_trial_start_button_button']"
+amount = "//div[@class='total-subscriptions-container price-line horizontal-box']"
+my_course = "//a[contains(text(),'{0}')]"
 upgrade_link = "//a[@class='btn-brand btn-upgrade']"
 
 # Payments Page Locators
