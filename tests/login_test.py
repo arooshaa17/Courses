@@ -1,7 +1,6 @@
-import time
 import os
-from tests.base_test import BaseTest
 from data_set import *
+from tests.base_test import BaseTest
 
 
 class LoginTest(BaseTest):
