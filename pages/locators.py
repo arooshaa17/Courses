@@ -39,3 +39,14 @@ card_expiration_year = "//select[@id='cardExpirationYear']"
 place_order_button = "//button[@id='placeOrderButton']"
 card_error = "//span[@class='text-danger']"
 
+# Page footer
+footer_logo = "//div[@class='edx-footer-logo']//a//img"
+about_link = "//a[contains(text(),'About')]"
+for_business = "//a[contains(text(),'edX for Business')]"
+terms = "//a[contains(text(),'Terms of Service & Honor Code')]"
+privacy = "//a[contains(text(),'Privacy Policy')]"
+accessibility = "//a[contains(text(),'Accessibility Policy')]"
+blog = "//a[contains(text(),'Blog')]"
+contact_us = "//a[contains(text(),'Contact Us')]"
+help_c = "//a[contains(text(),'Help Center')]"
+footer_elements_list = [footer_logo, about_link, for_business, terms, privacy, accessibility, blog, contact_us, help_c]

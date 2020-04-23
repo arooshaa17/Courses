@@ -1,5 +1,5 @@
 from data_set import *
-from pages.locators import page_selectors_list
+from pages.locators import page_selectors_list, footer_elements_list
 from tests.base_test import BaseTest
 
 
@@ -29,3 +29,9 @@ class CourseTest(BaseTest):
         result = self.course_page.verify_upgrade_enrollment(COURSE_NAME)
         self.assertTrue(result, "Upgrade failed")
 
+    def test_page_footer(self):
+        """
+        Verify that footer links are present on dashboard, programs and courses pages
+        """
+        result = self.home_page.verify_footer_for_all_pages(page_selectors_list, footer_elements_list)
+        self.assertTrue(result, "Footer elements are missing")

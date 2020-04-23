@@ -136,3 +136,7 @@ class BasePage(object):
             actual_page_titles_list.append(self.get_page_title)
             time.sleep(3)
         return actual_page_titles_list == expected_list
+
+    def scrollPage(self, offset):
+        self.driver.execute_script("window.scrollBy(0, arguments[0])", offset)
+        time.sleep(3)
