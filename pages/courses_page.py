@@ -54,3 +54,22 @@ class CoursePage(BasePage):
         self.element_click(place_order_button)
         time.sleep(3)
         return self.is_element_present(card_error)
+
+    def verify_course_pages_response(self, full_course_name):
+        """
+        Explore a course and verify that all 4 tabs are present and are loaded with response code OK"
+        :return:
+        """
+        courses_tabs = [course_tab, progress_tab, wiki_tab, discussion_tab]
+        self.element_click(my_course.format(full_course_name))
+        self.wait_for_element(start_course_link)
+        self.element_click(start_course_link)
+        time.sleep(2)
+        try:
+            for tab in courses_tabs:
+                self.element_click(tab)
+                self.verify_response_code(self.driver.current_url)
+                time.sleep(1)
+        except:
+            return False
+        return True

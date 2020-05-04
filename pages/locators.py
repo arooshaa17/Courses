@@ -11,6 +11,8 @@ course_link = "(//div[@class='mobile-nav-item hidden-mobile nav-item nav-tab'])[
 product_link = "(//div[@class='mobile-nav-item hidden-mobile nav-item nav-tab'])[2]"
 discover_link = "(//div[@class='mobile-nav-item hidden-mobile nav-item nav-tab'])[3]"
 page_selectors_list = [course_link, product_link, discover_link]
+view_course_link = "//a[contains(text(),'View Course')]"
+start_course_link = "//a[@class='btn btn-primary action-resume-course']"
 
 # Course Page Locators #
 explore_course = "//a[@class='btn-neutral']"
@@ -22,6 +24,10 @@ free_trial = "//button[@id='free_trial_start_button_button']"
 amount = "//div[@class='total-subscriptions-container price-line horizontal-box']"
 my_course = "//a[contains(text(),'{0}')]"
 upgrade_link = "//a[@class='btn-brand btn-upgrade']"
+course_tab = "//a[contains(text(),'Course')]"
+progress_tab = "//a[contains(text(),'Progress')]"
+wiki_tab = "//a[contains(text(),'Wiki')]"
+discussion_tab = "//a[contains(text(),'Discussion')]"
 
 # Payments Page Locators
 first_name = "//input[@id='firstName']"

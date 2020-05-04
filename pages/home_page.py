@@ -1,5 +1,6 @@
 import time
 from pages.base_page import BasePage
+import requests
 
 
 class HomePage(BasePage):
@@ -25,12 +26,17 @@ class HomePage(BasePage):
                :return: True or False
         """
         # for each page, verify every footer link
-        is_present = None
         for selector in selectors_list:
-            self.element_click(selector)
-            print(self.driver.title)
-            self.scrollPage(1000)
-            time.sleep(3)
-            for footer_element in footer_elements_list:
-                is_present = self.is_element_present(footer_element)
-        return is_present
+            try:
+                self.element_click(selector)
+                print(self.driver.title)
+                time.sleep(3)
+                for footer_element in footer_elements_list:
+                    self.is_element_present(footer_element)
+            except:
+                return False
+        return True
+    
+    def verify_response_code(self, url):
+        r = requests.get(url)
+        print(r.status_code)

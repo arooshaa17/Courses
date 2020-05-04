@@ -2,6 +2,8 @@ import logging
 import random
 import string
 import time
+
+import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
@@ -140,3 +142,11 @@ class BasePage(object):
     def scrollPage(self, offset):
         self.driver.execute_script("window.scrollBy(0, arguments[0])", offset)
         time.sleep(3)
+
+    def verify_response_code(self, url):
+        r = requests.get(url)
+        print(r.status_code)
+
+
+
+

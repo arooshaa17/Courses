@@ -10,7 +10,6 @@ EMAIL = 'newtest5718@gmail.com'
 PASSWORD = 'testselenium123'
 INVALID_PASSWORD = 'abc123'
 
-
 # Courses
 COURSE_NAME = "Introduction to Python: Absolute Beginner"
 SEARCH_KEY = "Python"
