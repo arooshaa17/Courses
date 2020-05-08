@@ -1,8 +1,9 @@
 import time
 
-from data_set import DASHBOARD
+from data_set import DASHBOARD, EMAIL, PASSWORD
 from pages.base_page import BasePage
 from pages.locators import *
+from pages.login_page import LoginPage
 
 
 class CoursePage(BasePage):
@@ -25,10 +26,19 @@ class CoursePage(BasePage):
         self.element_click(enroll_button)
         time.sleep(1)
 
+    def select_any_course(self):
+        self.wait_for_element(enter_course)
+        self.click_random_element_from_list(enter_course)
+        self.wait_for_element(course_title)
+        self.element_click(next_button)
+
     def enroll_course(self, name, full_course_name):
         self.search_course(name)
         self.select_course(full_course_name)
         self.click_enroll_course_link()
+
+    def go_to_home_page(self):
+        self.element_click(logo)
 
     def verify_enroll_successful(self, full_course_name):
         self.navigate_to_page(DASHBOARD)
@@ -58,7 +68,6 @@ class CoursePage(BasePage):
     def verify_course_pages_response(self, full_course_name):
         """
         Explore a course and verify that all 4 tabs are present and are loaded with response code OK"
-        :return:
         """
         courses_tabs = [course_tab, progress_tab, wiki_tab, discussion_tab]
         self.element_click(my_course.format(full_course_name))
@@ -73,3 +82,19 @@ class CoursePage(BasePage):
         except:
             return False
         return True
+
+    def get_course_title(self):
+        actual_title = self.get_element_text(course_title)
+        return actual_title
+
+    def verify_resume_course_title(self):
+        """
+        Resume a course from user menu and return its Title
+        """
+        self.wait_for_element(user_menu)
+        self.element_click(user_menu)
+        time.sleep(2)
+        self.click_by_action_chains(resume_course_link)
+        self.wait_for_element(course_title)
+        resume_course_title = self.get_element_text(course_title)
+        return resume_course_title

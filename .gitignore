@@ -1,4 +1,4 @@
 .idea/
-.git
-.log
-.pytest_cache
+*.log
+.pytest_cache/
+*.pyc

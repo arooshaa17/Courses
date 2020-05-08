@@ -8,8 +8,6 @@ class HomePage(BasePage):
     def verify_homepage_nav_bar(self, selectors_list):
         """
         Verify page titles of all links on home page
-        :param selectors_list: list of locators for all main nav links pages
-        :return: List of actual page titles of all re-directions of nav links
         """
         page_title_list = []
         for selector in selectors_list:
@@ -21,9 +19,6 @@ class HomePage(BasePage):
     def verify_footer_for_all_pages(self, selectors_list, footer_elements_list):
         """
          Verify that footer links are present on dashboard, programs and courses pages
-               :param footer_elements_list: expected list of all footer links on pages
-               :param selectors_list: list of locators for all main nav links pages
-               :return: True or False
         """
         # for each page, verify every footer link
         for selector in selectors_list:
@@ -36,7 +31,7 @@ class HomePage(BasePage):
             except:
                 return False
         return True
-    
+
     def verify_response_code(self, url):
         r = requests.get(url)
         print(r.status_code)

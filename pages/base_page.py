@@ -2,12 +2,12 @@ import logging
 import random
 import string
 import time
-
 import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 import utilities.custom_logger as cl
 
 
@@ -43,7 +43,17 @@ class BasePage(object):
         element = self.driver.find_element(byType, locator)
         return element
 
-    def get_text(self, locator, locator_type="xpath"):
+    def get_element_list(self, locator, locator_type="xpath"):
+        byType = self.get_by_type(locator_type)
+        elements = self.driver.find_elements(byType, locator)
+        if len(elements) > 0:
+            print("Element list FOUND")
+            print(len(elements))
+        else:
+            print("Element list NOT FOUND")
+        return elements
+
+    def get_element_text(self, locator, locator_type="xpath"):
         element = self.get_element(locator, locator_type)
         return element.text
 
@@ -58,6 +68,13 @@ class BasePage(object):
     def element_click(self, locator, locator_type="xpath"):
         element = self.get_element(locator, locator_type)
         element.click()
+
+    def click_random_element_from_list(self, locator, locator_type="xpath"):
+        element_list = self.get_element_list(locator, locator_type)
+        print(element_list)
+        random_element = random.choice(element_list)
+        print(random_element)
+        random_element.click()
 
     def enter_data(self, data, locator, locator_type="xpath"):
         element = self.get_element(locator, locator_type)
@@ -98,6 +115,11 @@ class BasePage(object):
             selection.select_by_visible_text(data)
         else:
             selection.select_by_value(data)
+
+    def click_by_action_chains(self, locator, locator_type="xpath"):
+        submenu = self.get_element(locator, locator_type)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(submenu).click(submenu).perform()
 
     def wait_for_element(self, locator, locator_type="xpath"):
         """
@@ -146,7 +168,3 @@ class BasePage(object):
     def verify_response_code(self, url):
         r = requests.get(url)
         print(r.status_code)
-
-
-
-
