@@ -1,5 +1,5 @@
 from data_set import *
-from pages.locators import page_selectors_list
+from pages.locators import page_selectors_list, footer_elements_list
 from tests.base_test import BaseTest
 
 
@@ -29,3 +29,29 @@ class CourseTest(BaseTest):
         result = self.course_page.verify_upgrade_enrollment(COURSE_NAME)
         self.assertTrue(result, "Upgrade failed")
 
+    def test_course_pages_response_code(self):
+        """
+        Verify that internal course pages are showing OK response
+        """
+        result = self.course_page.verify_course_pages_response(COURSE_NAME)
+        self.assertTrue(result, "Response code is not OK")
+
+    def test_resume_course(self):
+        """
+        Verify that user can resume a previous course successfully
+        """
+        self.course_page.select_any_course()
+        actual_title = self.course_page.get_course_title()
+        self.login_page.logout()
+        self.driver.get(BASE_URL)
+        self.login_page.click_login_link()
+        self.login_page.login(EMAIL, PASSWORD)
+        expected_title = self.course_page.verify_resume_course_title()
+        self.assertEqual(expected_title, actual_title, "User could not resume previous course")
+
+    def test_page_footer(self):
+        """
+        Verify that footer links are present on dashboard, programs and courses pages
+        """
+        result = self.home_page.verify_footer_for_all_pages(page_selectors_list, footer_elements_list)
+        self.assertTrue(result, "Footer elements are missing")
