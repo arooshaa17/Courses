@@ -105,7 +105,6 @@ class BasePage(object):
             return False
 
     def select_value_from_dropdown(self, locator, data, locator_type="xpath", select_by='value'):
-
         element = self.get_element(locator, locator_type)
         time.sleep(3)
         selection = Select(element)
