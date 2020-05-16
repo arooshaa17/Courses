@@ -40,7 +40,7 @@ class CourseTest(BaseTest):
         """
         Verify that user can resume a previous course successfully
         """
-        self.course_page.select_any_course()
+        self.course_page.open_any_course()
         actual_title = self.course_page.get_course_title()
         self.login_page.logout()
         self.driver.get(BASE_URL)
@@ -55,3 +55,10 @@ class CourseTest(BaseTest):
         """
         result = self.home_page.verify_footer_for_all_pages(page_selectors_list, footer_elements_list)
         self.assertTrue(result, "Footer elements are missing")
+
+    def test_course_price(self):
+        """
+        Verify that course price at checkout is same as is on the Course page
+        """
+        result = self.course_page.verify_course_price_in_cart(COURSE_NAME2)
+        self.assertTrue(result, "Prices are not same")
