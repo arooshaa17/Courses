@@ -1,9 +1,8 @@
 import time
 
-from data_set import DASHBOARD, EMAIL, PASSWORD
+from data_set import DASHBOARD
 from pages.base_page import BasePage
 from pages.locators import *
-from pages.login_page import LoginPage
 
 
 class CoursePage(BasePage):
@@ -30,7 +29,6 @@ class CoursePage(BasePage):
         self.wait_for_element(enter_course)
         self.click_random_element_from_list(enter_course)
         self.wait_for_element(course_title)
-        # self.element_click(next_button)
 
     def enroll_course(self, name, full_course_name):
         self.search_course(name)
@@ -100,20 +98,17 @@ class CoursePage(BasePage):
         return resume_course_title
 
     def verify_course_price_in_cart(self, full_course_name):
-        time.sleep(3)
+        """
+        Go to cart and check price of course is the same as shown on upgrade link page
+        """
         self.explore_courses()
-        time.sleep(3)
         self.select_course(full_course_name)
-        time.sleep(3)
+        self.wait_for_element(enroll_button)
         self.element_click(enroll_button)
-        time.sleep(7)
+        self.wait_for_element(upgrade_link)
         self.get_element(upgrade_link)
-        self.get_element(upgrade_price)
         upgrade_course_price = self.get_element_text(upgrade_price)
-        print(upgrade_course_price)
         self.element_click(upgrade_link)
-        time.sleep(5)
-        self.get_element(cart_price)
+        self.wait_for_element(cart_price)
         cart_course_price = self.get_element_text(cart_price)
-        print(cart_course_price)
         return upgrade_course_price in cart_course_price
