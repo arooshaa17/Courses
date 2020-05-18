@@ -9,13 +9,12 @@ class LoginPage(BasePage):
 
     def click_login_link(self):
         self.element_click(login_link)
-        time.sleep(3)
+        self.wait_for_element(login_button)
 
     def login(self, email, password):
         self.enter_data(email, email_field, locator_type="name")
         self.enter_data(password, password_field, locator_type="name")
         self.element_click(login_button)
-        time.sleep(5)
 
     def logout(self):
         self.wait_for_element(user_menu)
