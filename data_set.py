@@ -13,4 +13,7 @@ INVALID_PASSWORD = 'abc123'
 # Courses
 COURSE_NAME = "Introduction to Python: Absolute Beginner"
 COURSE_NAME2 = "Introduction to Analytics Modeling"
-SEARCH_KEY = "Python"
+SEARCH_KEY = "python"
+VERIFIED_LINK = "Verified"
+PARTNER_VALUE = "HarvardX"
+

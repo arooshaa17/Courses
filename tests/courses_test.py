@@ -62,3 +62,12 @@ class CourseTest(BaseTest):
         """
         result = self.course_page.verify_course_price_in_cart(COURSE_NAME2)
         self.assertTrue(result, "Prices are not same")
+
+    def test_courses_filters(self):
+        """
+        Verify that applying filters on courses shows the correct result
+        """
+        self.course_page.explore_courses()
+        self.assertTrue(self.course_page.verify_search_filters(SEARCH_KEY))
+        self.assertTrue(self.course_page.verify_course_filters(VERIFIED_LINK))
+        self.assertTrue(self.course_page.verify_course_partner_filters(PARTNER_VALUE))

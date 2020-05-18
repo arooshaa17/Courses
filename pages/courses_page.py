@@ -8,14 +8,14 @@ from pages.locators import *
 class CoursePage(BasePage):
 
     def explore_courses(self):
+        self.wait_for_element(explore_course)
         self.element_click(explore_course)
-        time.sleep(3)
 
-    def search_course(self, name):
-        self.enter_data(name, search_box)
-        time.sleep(3)
+    def search_course(self, search_key):
+        search_key.lower()
+        self.wait_for_element(search_button)
+        self.enter_data(search_key, search_box)
         self.element_click(search_button)
-        time.sleep(3)
 
     def select_course(self, full_course_name):
         self.element_click(course.format(full_course_name))
@@ -112,3 +112,19 @@ class CoursePage(BasePage):
         self.wait_for_element(cart_price)
         cart_course_price = self.get_element_text(cart_price)
         return upgrade_course_price in cart_course_price
+
+    def verify_search_filters(self, search_key):
+        self.search_course(search_key)
+        self.wait_for_element(filter_buttons_list)
+        return self.is_element_present(filter_element.format(search_key))
+
+    def verify_course_filters(self, filter_value):
+        self.element_click(any_filter.format(filter_value))
+        self.wait_for_element(filter_buttons_list)
+        return self.is_element_present(filter_element.format(filter_value))
+
+    def verify_course_partner_filters(self, filter_value):
+        self.select_value_from_dropdown(partner_dropdown, filter_value, select_by='text')
+        self.element_click(partner_submit_button)
+        self.wait_for_element(filter_buttons_list)
+        return self.is_element_present(filter_element.format(filter_value))

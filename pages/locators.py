@@ -1,3 +1,4 @@
+
 # Login Page Locators #
 login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
 email_field = "email"
@@ -40,6 +41,18 @@ all_courses = "//a[@class='course-link']"
 audit_course = "//input[@name='audit_mode']"
 upgrade_price = "//a[@class='btn-brand btn-upgrade']//span[@class='price']"
 cart_price = "//span[@class='text-right']//span"
+
+# Filters
+any_filter = "//button[contains(text(),'{0}')]"
+verified_filter = "//button[@data-value='verified']"
+partner_dropdown = "//select[@class='facet-select select-organizations']"
+partner_submit_button = "//button[@class='btn-edged-blue select-facet-button']"
+filter_buttons_list = "//button[@class='facet-option js-clear']"
+result_message = "//h2[@class='js-result-msg hide-phone']"
+course_list = "//a[@class='course-link']"
+course_name = "//h3[contains(text(),'CS50's Web Programming with Python and JavaScript')]"
+python_filter = "//button[@data-display-name='python']"
+filter_element = "//button[@data-display-name='{0}']"
 
 # Payments Page Locators
 first_name = "//input[@id='firstName']"
