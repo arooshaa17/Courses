@@ -71,3 +71,5 @@ class CourseTest(BaseTest):
         self.assertTrue(self.course_page.verify_search_filters(SEARCH_KEY))
         self.assertTrue(self.course_page.verify_course_filters(VERIFIED_LINK))
         self.assertTrue(self.course_page.verify_course_partner_filters(PARTNER_VALUE))
+        self.assertTrue(self.course_page.verify_all_filters_applied(EXPECTED_FILTERS))
+
