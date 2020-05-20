@@ -16,4 +16,4 @@ COURSE_NAME2 = "Introduction to Analytics Modeling"
 SEARCH_KEY = "python"
 VERIFIED_LINK = "Verified"
 PARTNER_VALUE = "HarvardX"
-
+EXPECTED_FILTERS = ["python", "Verified", "HarvardX"]

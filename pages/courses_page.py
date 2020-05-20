@@ -1,5 +1,6 @@
 import time
 
+import itertools
 from data_set import DASHBOARD
 from pages.base_page import BasePage
 from pages.locators import *
@@ -128,3 +129,25 @@ class CoursePage(BasePage):
         self.element_click(partner_submit_button)
         self.wait_for_element(filter_buttons_list)
         return self.is_element_present(filter_element.format(filter_value))
+
+    def verify_all_filters_applied(self, expected_filters):
+        filter_element_list = self.get_element_list(filter_buttons_list)
+        time.sleep(3)
+        for element in filter_element_list:
+            abc = element.text
+            if abc not in expected_filters:
+                return False
+        return True
+
+    def verify_footer_card_images(self, selector, verification_list):
+        """
+        Verifies footer card images. Takes selector list src and compares with
+        verification list provided
+        """
+        list_of_elements = self.find_css_list(selector)
+        for image_name, image_element in zip(
+                verification_list, list_of_elements):
+            if image_name not in self.get_attribute(image_element, "src"):
+                print(image_name + ' not found!')
+                return False
+        return True
