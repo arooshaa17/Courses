@@ -1,6 +1,9 @@
 import time
 
 import itertools
+
+import requests
+
 from data_set import DASHBOARD
 from pages.base_page import BasePage
 from pages.locators import *
@@ -150,4 +153,22 @@ class CoursePage(BasePage):
             if image_name not in self.get_attribute(image_element, "src"):
                 print(image_name + ' not found!')
                 return False
+        return True
+
+    def verify_href_response_code(self, element_list):
+        """
+        Explore a course and verify that all course cards are loaded with response code OK"
+        """
+        time.sleep(3)
+        images_list = self.get_element_list(element_list)
+        try:
+            for element in images_list:
+                value = element.get_attribute('href')
+                r = requests.get(value)
+                response_code = r.status_code
+                if response_code == 200:
+                    print("Image loaded successfully with a response code of:" + str(response_code))
+        except:
+            print("Image not loaded for the element and response code is:" + str(response_code))
+            return False
         return True

@@ -41,6 +41,7 @@ all_courses = "//a[@class='course-link']"
 audit_course = "//input[@name='audit_mode']"
 upgrade_price = "//a[@class='btn-brand btn-upgrade']//span[@class='price']"
 cart_price = "//span[@class='text-right']//span"
+course_card_href_list = '//div[@id="displayed-results"]//a'
 
 # Filters
 any_filter = "//button[contains(text(),'{0}')]"
