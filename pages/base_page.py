@@ -47,8 +47,7 @@ class BasePage(object):
         byType = self.get_by_type(locator_type)
         elements = self.driver.find_elements(byType, locator)
         if len(elements) > 0:
-            print("Element list FOUND")
-            print(len(elements))
+            print("Element list FOUND with length of : " + str(len(elements)))
         else:
             print("Element list NOT FOUND")
         return elements
