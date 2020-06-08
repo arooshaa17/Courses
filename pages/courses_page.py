@@ -159,13 +159,12 @@ class CoursePage(BasePage):
         """
         Explore a course and verify that all course cards are loaded with response code OK"
         """
-        time.sleep(3)
         images_list = self.get_element_list(element_list)
         try:
             for element in images_list:
                 value = element.get_attribute('href')
-                r = requests.get(value)
-                response_code = r.status_code
+                req = requests.get(value)
+                response_code = req.status_code
                 if response_code == 200:
                     print("Image loaded successfully with a response code of:" + str(response_code))
         except:

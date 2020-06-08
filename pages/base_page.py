@@ -47,8 +47,7 @@ class BasePage(object):
         byType = self.get_by_type(locator_type)
         elements = self.driver.find_elements(byType, locator)
         if len(elements) > 0:
-            print("Element list FOUND")
-            # print(len(elements))
+            print("Element list FOUND with length of : " + str(len(elements)))
         else:
             print("Element list NOT FOUND")
         return elements
@@ -166,10 +165,4 @@ class BasePage(object):
 
     def verify_response_code(self, url):
         r = requests.get(url)
-        print(r.status_code)
-
-    def get_response_code(self, element):
-        time.sleep(3)
-        a = element.get_attribute(href)
-        r = requests.get(a)
         print(r.status_code)
