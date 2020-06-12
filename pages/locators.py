@@ -1,4 +1,3 @@
-
 # Login Page Locators #
 login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
 email_field = "email"
@@ -15,8 +14,16 @@ page_selectors_list = [course_link, product_link, discover_link]
 view_course_link = "//a[contains(text(),'View Course')]"
 start_course_link = "//a[@class='btn btn-primary action-resume-course']"
 
-
-
+# userMenu
+user_menu = "//div[contains(@class,'toggle-user-dropdown')]"
+resume_course_link = "//div[@id='user-menu']//a[contains(text(),'Resume')]"
+log_out = "//div[@id='user-menu']//a[contains(text(),'Sign Out')]"
+profile_link = "//div[@id='user-menu']//a[contains(text(),'Profile')]"
+profile_avatar = "//div[@class='profile-avatar-menu-container']"
+upload_photo_link = "//button[@class='btn text-white btn-block btn-sm btn-link']"
+change_dropdown= "//button[@class='dropdown-toggle btn btn-light']"
+remove_option = "//button//span[contains(text(),'Remove')]"
+upload_option = "//button//span[contains(text(),'Upload Photo')]"
 
 # Course Page Locators #
 explore_course = "//a[@class='btn-neutral']"
