@@ -1,7 +1,10 @@
 import logging
+import os
 import random
 import string
 import time
+from traceback import print_stack
+
 import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -166,3 +169,38 @@ class BasePage(object):
     def verify_response_code(self, url):
         r = requests.get(url)
         print(r.status_code)
+
+    def take_screenshot(self, driver):
+
+        """
+        Takes screenshot of the current open web page
+        """
+        fileName = str(round(time.time() * 1000)) + ".png"
+        screenshot_directory = "/Users/atomar/desktop/"
+        destination_file = screenshot_directory + fileName
+
+        try:
+            self.driver.save_screenshot(destination_file)
+            print("Screenshot saved to directory --> :: " + destination_file)
+        except NotADirectoryError:
+            print("Not a directory issue")
+
+    def screen_shot(self):
+
+        """
+        Takes screenshot of the current open web page
+        """
+        fileName = str(round(time.time() * 1000)) + ".png"
+        screenshotDirectory = "../screenshots/"
+        relativeFileName = screenshotDirectory + fileName
+        currentDirectory = os.path.dirname(__file__)
+        destinationFile = os.path.join(currentDirectory, relativeFileName)
+        destinationDirectory = os.path.join(currentDirectory, screenshotDirectory)
+
+        try:
+            if not os.path.exists(destinationDirectory):
+                os.makedirs(destinationDirectory)
+            self.driver.save_screenshot(destinationFile)
+            self.log.info("Screenshot save to directory: " + destinationFile)
+        except:
+            self.log.error("### Exception Occurred when taking screenshot")

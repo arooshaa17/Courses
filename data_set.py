@@ -17,6 +17,4 @@ SEARCH_KEY = "python"
 VERIFIED_LINK = "Verified"
 PARTNER_VALUE = "HarvardX"
 EXPECTED_FILTERS = ["python", "Verified", "HarvardX"]
-IMAGE_PATH = "C:\\Users\\Aroosha Arif\\Desktop\\sunrise.jpg"
-
-
+IMAGE_PATH = 'C:\\Users\\Aroosha Arif\\Desktop\\sunrise.jpg'

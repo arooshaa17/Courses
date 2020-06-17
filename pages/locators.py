@@ -1,7 +1,7 @@
 # Login Page Locators #
 login_link = "//a[@class='btn' and contains(text(), 'Sign In')]"
-email_field = "email"
-password_field = "password"
+email_field = "//input[@id='login-email']"
+password_field = "//input[@id='login-password']"
 login_button = "//button[@type='submit']"
 my_profile = "//section[@id='my-courses']"
 login_error = "//li[contains(text(), 'Email or password is incorrect')]"
